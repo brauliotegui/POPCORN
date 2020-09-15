@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Lemongrass recommender recommendation</title>
+</head>
+<body>
+  <h1>Here are your recommended movies:</h1>
+  <br>
+  <ul>
+
+
+      <!--
+      <!--Jinja templates for dynamic rendering, facilitates or HTTP Response
+      <li> {{ result_html[1] }} </li>
+      <li> {{ result_html[2] }} </li> -->
+
+  {% for m in result_html%} <!-- this indicates a for-loop in html -->
+    <li>{{ m }}</li>
+    {% endfor %}
+
+
+  </ul>
+  <br>
+  <a href='/index'>Take me back home!</a>
+</body>
+
+</html>
