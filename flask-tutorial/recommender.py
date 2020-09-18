@@ -1,31 +1,63 @@
-"""Machine-Learning Code that returns movies"""
+"""Machine-Learning Code that returns movie recommendations"""
 import numpy as np
 from sklearn.decomposition import NMF
+from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 
+MOVIES = pd.read_csv('movies.csv')
+RATINGS = pd.read_csv('ratings.csv')
+DF = pd.merge(RATINGS, MOVIES, left_on='movieId', right_on='movieId')
+
+MIDS = RATINGS['movieId'].unique()
+MIDS = pd.DataFrame(MIDS)
+MOVIES_DF = pd.merge(MIDS, MOVIES, left_on=0, right_on='movieId')
 
 def calculate_best_movies(result_html):
+    ''' doc '''
     column_names = ['title', 'rating']
-    user_input = pd.DataFrame(result_html, columns = column_names)
+    user_input = pd.DataFrame(result_html, columns=column_names)
 
-    movies = pd.read_csv('movies.csv')
-    r = pd.read_csv('ratings.csv')
-    df = pd.merge(r, movies, left_on = 'movieId', right_on = 'movieId')
-    Rtrue = df.pivot(index = 'userId', columns = 'movieId', values = 'rating')
-    Rtrue.fillna(2.5, inplace = True)
-    m = NMF(max_iter = 500, n_components=21)
-    m.fit(Rtrue)
+    r_true = DF.pivot(index='userId', columns='movieId', values='rating')
+    r_true.fillna(2.5, inplace=True)
+    m = NMF(max_iter=500, n_components=21)
+    m.fit(r_true)
     P = m.components_
 
-    Ids = r['movieId'].unique()
-    ID = pd.DataFrame(Ids)
-    movie_info = pd.merge(ID, movies, left_on = 0, right_on = 'movieId')
-    user_ratings = pd.merge(movie_info, user_input, left_on = 'title', right_on = 'title', how = 'left')
+    user_ratings = pd.merge(MOVIES_DF, user_input, left_on='title', right_on='title', how='left')
     new_user = user_ratings['rating'].fillna(2.5)
-    nu = np.array(new_user).reshape(1, -1)
-    profile = m.transform(nu)
+    new_u = np.array(new_user).reshape(1, -1)
+    profile = m.transform(new_u)
     result = np.dot(profile, P)
-    movie_info['recom'] = result.T
+    MOVIES_DF['recom'] = result.T
 
-    result = movie_info.sort_values('recom', ascending=False)['title'].head(5)
+    result = MOVIES_DF.sort_values('recom', ascending=False)['title'].head(5)
+    return result
+
+def similar_users_recommender(result_html):
+    ''' doc '''
+    column_names = ['title', 'rating']
+    user_input = pd.DataFrame(result_html, columns=column_names)
+
+    user_ratings = pd.merge(MOVIES_DF, user_input, left_on='title', right_on='title', how='left')
+    query = user_ratings['rating']
+    query = np.array(query)
+
+    m_matrix = DF.pivot_table(values='rating', index='userId', columns='movieId')
+    m_matrix.loc['e'] = query
+    m_matrix.fillna(2.5, inplace=True)  #can be replaced by mm.sub(mm.mean(axis=0), axis=1)?
+
+    cosim = cosine_similarity(m_matrix)[-1]
+    cosim = pd.DataFrame(cosim)
+    top10 = cosim.sort_values(by=[0], ascending=[False]).head(11)  #order by most similar users
+    similar_users = list(top10.index)
+    similar_users = similar_users[1:]
+
+    users_r = m_matrix.loc[similar_users, :]
+    movie_ratings_avg = users_r.mean()
+    movie_ratings_avg = pd.DataFrame(movie_ratings_avg)
+
+    rec_movies = movie_ratings_avg.sort_values(by=[0], ascending=[False]).head(10)
+    rec_movies = pd.merge(rec_movies, MOVIES, left_on='movieId', right_on='movieId', how='left')
+
+    result = rec_movies['title']
     return result
