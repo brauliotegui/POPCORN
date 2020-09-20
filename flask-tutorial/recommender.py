@@ -44,7 +44,8 @@ def similar_users_recommender(result_html):
 
     m_matrix = DF.pivot_table(values='rating', index='userId', columns='movieId')
     m_matrix.loc['e'] = query
-    m_matrix.fillna(2.5, inplace=True)  #can be replaced by mm.sub(mm.mean(axis=0), axis=1)?
+    m_matrix = m_matrix.sub(m_matrix.mean(axis=0), axis=1)
+    m_matrix.fillna(0, inplace=True)
 
     cosim = cosine_similarity(m_matrix)[-1]
     cosim = pd.DataFrame(cosim)
