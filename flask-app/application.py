@@ -10,14 +10,25 @@ app = Flask(__name__)
 # We launch this file from the terminal to start the app
 
 @app.route('/')
-def dropdown():
-    choices = list(range(1,11))
-    return render_template('test.html', choices=choices)
-
 @app.route('/index')  # whatever the function below this, route it to the path
-def hello_world():
-    choicenr = int(request.args['choicenr'])
-    return render_template('index.html', choicenr=choicenr)  # it automatically looks at templates
+    movies=[]
+    return render_template('index.html')
+
+
+@app.route('/ratings', methods = ['POST','GET'])
+def ratings():
+    user_input = dict(request.form)              # copied from github to make it worl
+    print(user_input)
+    if 'movielist' in user_input.keys():
+        movielist = user_input['movielist']
+        ids = list(map(int, movielist.split(',')))
+        titles = rec.movieId_to_title(ids)
+        movies = dict(zip(titles,ids))
+    else:
+        movies = dict()
+    print(movies)
+    return render_template('ratings.html', movies_html=movies.items())
+
 
 
 @app.route('/recommender')
