@@ -4,8 +4,8 @@ from sklearn.decomposition import NMF
 from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 
-MOVIES = pd.read_csv('movies.csv')
-RATINGS = pd.read_csv('ratings.csv')
+MOVIES = pd.read_csv('ml-latest-small/movies.csv')
+RATINGS = pd.read_csv('ml-latest-small/ratings.csv')
 DF = pd.merge(RATINGS, MOVIES, left_on='movieId', right_on='movieId')
 
 MIDS = RATINGS['movieId'].unique()
