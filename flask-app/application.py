@@ -11,6 +11,7 @@ app = Flask(__name__)
 
 @app.route('/')
 @app.route('/index')  # whatever the function below this, route it to the path
+def index():
     movies=[]
     return render_template('index.html')
 
