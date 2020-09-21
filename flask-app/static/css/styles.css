@@ -1,8 +1,8 @@
-.jumbotron {
+.main-container {
   height: 100vh;
   display: flex;
   background-color: #D4EFFF;
-  color: #FFFFFF;
+  color: #1E3052;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -15,7 +15,8 @@
 .btn-primary {
   background-color: #1E3052;
   color: #FAFFFD;
-  margin-top: 150px;
+  margin-top: 30px;
+  margin-left: 20px;
 }
 
 .container {

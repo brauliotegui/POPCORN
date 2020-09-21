@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from recommender import calculate_best_movies
 from recommender import similar_users_recommender
+from recommender import movieId_to_title
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -23,7 +24,7 @@ def ratings():
     if 'movielist' in user_input.keys():
         movielist = user_input['movielist']
         ids = list(map(int, movielist.split(',')))
-        titles = rec.movieId_to_title(ids)
+        titles = movieId_to_title(ids)
         movies = dict(zip(titles,ids))
     else:
         movies = dict()
