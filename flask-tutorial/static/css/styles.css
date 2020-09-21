@@ -1,0 +1,43 @@
+* {
+  background-color: white;
+}
+
+
+/* means target all elements on the HTML page */
+
+/*all p-tags/paragraphs are colored in this way now: */
+
+p {
+  color:blue;
+}
+
+.red {
+  color: red;
+}
+
+#green-text {
+  color: green;
+}
+
+.bold{
+  font-weight: bold;
+}
+
+/* PRIORITY (Least to greatest)
+1. elements
+2. class
+3. idea
+*/
+
+/* flex mode allows distribution of objects equally across the page */
+.main-container{
+height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.submit-button-container{
+  
+}

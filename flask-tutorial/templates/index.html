@@ -2,34 +2,77 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="static/css/styles.css">
   <title>Lemongrass Movie Recommender</title>
-
+  <link href="static/css/jquery.flexdatalist.min.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
     <!-- The body is what is rendered on screen # this is a comment -->
 
+  <div class="main-container">
   <h1>Hello, Welcome to my Movie Recommender!</h1>
-  <a href='https://www.spiced-academy.com'  >Go to Spiced!</a>
   <br>
 
-  <form action="/recommendations">   <!-- form tag for user input, action is for the following function-->
-    <p>Please rate the following movies on a scale from 0.0 to 5.0:</p>
-    Foor Rooms:
-    <input type="text" name="Four Rooms (1995)" placeholder="0.0 - 5.0"><br>
-    Karate Kid:
-    <input type="text" name="Karate Kid, The (1984)" placeholder="0.0 - 5.0"><br>
-    Invincible:
-    <input type="text" name="Invincible (2001)" placeholder="0.0 - 5.0"><br>
-    Ladykillers:
-    <input type="text" name="Ladykillers, The (1955)" placeholder="0.0 - 5.0"><br>
-    Spaced Invaders:
-    <input type="text" name="Spaced Invaders (1990)" placeholder="0.0 - 5.0"><br>
-    <br>
-    <input type="submit">
+  <form action="/ratings" method ="POST">   <!-- form tag for user input, action is for the following function-->
+
+    <p>Please select some movies:</p>
+
+    <input type="text" name="movielist" placeholder="List of movies"
+    class="flexdatalist"
+    data-min-length="1"
+    data-searchContain="true"
+    multiple=""
+    data-selection-required='1'
+    data-data='static/movies.json'
+    data-search-in='title'
+    data-value-property='movieId'
+    data-search-by-word='false'
+    required>
+    <input type="submit" value = "Wanna rate your movies? Hit here">
   </form>
-  <br>
-  <a href='/recommendations'>Show me my recommendations!</a>
+
+  <!-- {% if movies_html %}
+  Please rate the movies from 0.5 stars to 5.0 stars.
+  <div class="container">
+    <form action="/recommendations">
+      {% for m in movies_html %}
+      </div>
+        <br>
+        {{m[0]}}
+        <input type="text" name="{{m[1]}}" placeholder="0.0 - 5.0" required>
+        <br>
+        {% endfor %}
+      </div>
+      {% endif %}
+    <input type="submit" value = "Proceed to suggestions">
+    <br>
+  </div> -->
+
+  <p class="red bold"> Only this paragraph should be red!!
+  Except for <span id ="green-text">this.</span></p>
+
+  <!-- <a href='/recommendations'>Show me my recommendations!</a> -->
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script></script>
 
 </body>
+
+<script src="static/js/jquery.flexdatalist.min.js"></script>  <!-- has to be outside the html-body -->
+<script type="text/javascript" src="static/js/script.js"></script>
+<!-- <script>
+$('.flexdatalist-json').flexdatalist({
+ searchContain: false,
+ valueProperty: 'string',
+ minLength: 1,
+ selectionRequired: 1,
+ focusFirstResult: true,
+ searchIn: 'title',
+ searchByWord: true,
+ data: 'static/movies.json'
+ });
+</script> -->
+
 
 </html>

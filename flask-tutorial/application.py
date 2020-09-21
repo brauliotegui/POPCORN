@@ -1,13 +1,38 @@
 from flask import Flask, render_template
-from flask import request
+from flask import request, redirect
 import recommender as rec #import all objects from recommender.py
 
 app = Flask(__name__) # tells Flask to make THIS script the center of the application
 
-@app.route('/index')    # whenever user visits HOSTNAME:PORT/index, this function is triggered: Flask Decorator
-@app.route('/')         # 'index' as name is purely conventiona, could be anything
+
+@app.route('/')    # whenever user visits HOSTNAME:PORT/index, this function is triggered: Flask Decorator
+@app.route('/index')         # 'index' as name is purely conventiona, could be anything
 def index():
-    return render_template('index.html')
+    movies=[]
+    user_input = dict(request.args)              # copied from github to make it worl
+    if 'movielist' in user_input:
+        movielist = user_input['movielist']
+        ids = list(map(int, movielist.split(',')))
+        titles = rec.movieId_to_title(ids)
+        movies = zip(titles,ids)
+        movies = movielist
+        return (request.form['movies'])
+    return render_template('index.html', movies_html = movies)
+
+
+@app.route('/ratings', methods = ['POST','GET'])
+def ratings():
+    user_input = request.args
+    if 'movielist' in user_input:
+        movielist = user_input['movies']
+        ids = list(map(int, movielist.split(',')))
+        titles = rec.movieId_to_title(ids)
+        movies = zip(titles,ids)
+        movies = movielist
+        return (request.form['movies'])
+    return render_template('ratings.html', ratings_html=ratings)
+
+
 
 @app.route('/recommendations')          # Python decorator modifies the function that is defined ON THE NEXT LINE
 def recommender():                      # function HAS TO FOLLOW on the NEXT LINE
