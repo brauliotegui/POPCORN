@@ -10,40 +10,20 @@
 
 
 <body>
-  <!-- <p>Please rate the movies from 0.5 stars to 5.0 stars.</p> -->
 
-  {% if movies_html %}
-  Please rate the movies from 0.5 stars to 5.0 stars.
+  </div>
   <div class="container">
     <form action="/recommendations">
-      {% for m in movies_html %}
-        <!-- <p>Please rate the movies from 0.5 stars to 5.0 stars.</p> -->
-                 {{m[1]}}
-          <input type="text" name="{{m[1]}}" placeholder="0.0 - 5.0" required>
 
-        <!-- </div>
-          <div class="col-2">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="{{m[1]}}" id="gridRadios1" value="5" checked>
-              <label class="form-check-label" for="gridRadios1">
-                Top
-              </label>
-            </div>
-          </div>
-            <div class="col-2">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="{{m[1]}}" id="gridRadios1" value="0">
-                <label class="form-check-label" for="gridRadios1">
-                  Flop
-                </label>
-                </div>
-              </div>
-            </div> -->
+      {% for m in movies_html %}
+       <p>Please rate the movies from 0.5 stars to 5.0 stars.</p>
+                 {{m[0]}}
+          <input type="text" name="{{m[1]}}" placeholder="0.0 - 5.0" required>
 
             <br>
             {% endfor %}
           </div>
-          {% endif %}
+
           <input type="submit" value = "Proceed to suggestions">
         </form>
 <a href='/index'>Forgot some movies?</a>

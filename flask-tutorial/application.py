@@ -9,28 +9,22 @@ app = Flask(__name__) # tells Flask to make THIS script the center of the applic
 @app.route('/index')         # 'index' as name is purely conventiona, could be anything
 def index():
     movies=[]
-    user_input = dict(request.args)              # copied from github to make it worl
-    if 'movielist' in user_input:
-        movielist = user_input['movielist']
-        ids = list(map(int, movielist.split(',')))
-        titles = rec.movieId_to_title(ids)
-        movies = zip(titles,ids)
-        movies = movielist
-        return (request.form['movies'])
-    return render_template('index.html', movies_html = movies)
+    return render_template('index.html')
 
 
 @app.route('/ratings', methods = ['POST','GET'])
 def ratings():
-    user_input = request.args
-    if 'movielist' in user_input:
-        movielist = user_input['movies']
+    user_input = dict(request.form)              # copied from github to make it worl
+    print(user_input)
+    if 'movielist' in user_input.keys():
+        movielist = user_input['movielist']
         ids = list(map(int, movielist.split(',')))
         titles = rec.movieId_to_title(ids)
-        movies = zip(titles,ids)
-        movies = movielist
-        return (request.form['movies'])
-    return render_template('ratings.html', ratings_html=ratings)
+        movies = dict(zip(titles,ids))
+    else:
+        movies = dict()
+    print(movies)
+    return render_template('ratings.html', movies_html=movies.items())
 
 
 
