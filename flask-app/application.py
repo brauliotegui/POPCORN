@@ -9,28 +9,35 @@ app = Flask(__name__)
 # make this file the center of the app
 # We launch this file from the terminal to start the app
 
-@app.route('/')
-@app.route('/index')  # whatever the function below this, route it to the path
+@app.route('/') #FIRST PAGE
 def index():
     movies=[]
-    return render_template('index.html')
-
-
-@app.route('/ratings', methods = ['POST','GET'])
-def ratings():
-    user_input = dict(request.form)              # copied from github to make it worl
-    print(user_input)
-    if 'movielist' in user_input.keys():
+    user_input = dict(request.args)              # copied from github to make it worl
+    if 'movielist' in user_input:
         movielist = user_input['movielist']
         ids = list(map(int, movielist.split(',')))
         titles = rec.movieId_to_title(ids)
-        movies = dict(zip(titles,ids))
-    else:
-        movies = dict()
-    print(movies)
-    return render_template('ratings.html', movies_html=movies.items())
+        movies = zip(titles,ids)
+        movies = movielist
+        return (request.form['movies'])
+    return render_template('test.html', movies_html = movies)
 
+@app.route('/index')  # SECOND PAGE
+def hello_world():
+    choicenr = int(request.args['choicenr'])
+    return render_template('index.html', choicenr=choicenr)  # it automatically looks at templates
 
+@app.route('/ratings', methods = ['POST','GET'])
+def ratings():
+    user_input = request.args
+    if 'movielist' in user_input:
+        movielist = user_input['movies']
+        ids = list(map(int, movielist.split(',')))
+        titles = rec.movieId_to_title(ids)
+        movies = zip(titles,ids)
+        movies = movielist
+        return (request.form['movies'])
+    return render_template('ratings.html', ratings_html=ratings)
 
 @app.route('/recommender')
 def recommender():

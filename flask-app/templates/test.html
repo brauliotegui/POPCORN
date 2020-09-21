@@ -1,0 +1,37 @@
+{% extends "_base.html" %}
+
+<head>
+<link href="static/css/jquery.flexdatalist.min.css" rel="stylesheet" type="text/css">
+</head>
+{% block content %}
+
+<body>
+<div class="jumbotron">
+
+  <h1>Can't decide which movie you should watch?</h1><br>
+  <h3>Select the movies you want to rate:
+    <br>Hint: The more movies you rate,<br>
+    the better the recommendation sysem works</h3>
+
+    <br><form action="/ratings" method ="POST">   <!-- form tag for user input, action is for the following function-->
+
+       <input type="text" name="movielist" placeholder="List of movies"
+       class="flexdatalist"
+       data-min-length="1"
+       data-searchContain="true"
+       multiple=""
+       data-selection-required='1'
+       data-data='static/movies.json'
+       data-search-in='title'
+       data-value-property='movieId'
+       data-search-by-word='false'
+       required>
+       <input type="submit" value = "Select movies">
+     </form>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script></script>
+ </div>
+</body>
+<script src="static/js/jquery.flexdatalist.min.js"></script>  <!-- has to be outside the html-body -->
+<script type="text/javascript" src="static/js/script.js"></script>
+{% endblock %}
