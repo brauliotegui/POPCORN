@@ -1,29 +1,47 @@
-{% extends "_base.html" %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="static/css/styles.css">
+  <title>Lemongrass Movie Recommender</title>
+  <link href="static/css/jquery.flexdatalist.min.css" rel="stylesheet" type="text/css">
+</head>
 
-{% block content %}
+<body>
 
-
-<div class="jumbotron">
-<h1>What's your taste in movies?</h1><br>
-<h2>Please, rate some movies:</h2><br>
-<div class="form-group">
-<form action="/recommender" method="get">
-  {% for i in range(choicenr) %}
-  <input type="text" name="movie{{ i }}" placeholder="Enter a Movie Title">
-  <input type="text" name="rating{{ i }}" placeholder="Enter a Rating (1-5)">
+  <div class="main-container">
+  <h1>Hello, Welcome to my Movie Recommender!</h1>
   <br>
-  {% endfor%}
-<br>
 
-  <label for="models">Choose recommendation system:</label>
-  <select name="model">
-    <option value="NMF">NMF</option>"
-    <option value="cosine">Similar Users</option>"
-    <br>
-    <br>
-    <br>
-    <input type="submit" name="" value="Submit" class="btn btn-primary">
-  </select>
-</form>
-</div>
-{% endblock %}
+  <form action="/ratings" method ="POST">   <!-- form tag for user input, action is for the following function-->
+
+    <p>Please select some movies:</p>
+
+    <input type="text" name="movielist" placeholder="List of movies"
+    class="flexdatalist"
+    data-min-length="1"
+    data-searchContain="true"
+    multiple=""
+    data-selection-required='1'
+    data-data='static/movies.json'
+    data-search-in='title'
+    data-value-property='movieId'
+    data-search-by-word='false'
+    required>
+    <input type="submit" value = "Wanna rate your movies? Hit here">
+  </form>
+
+
+  <p class="red bold"> Only this paragraph should be red!!
+  Except for <span id ="green-text">this.</span></p>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script></script>
+
+</body>
+
+<script src="static/js/jquery.flexdatalist.min.js"></script>  <!-- has to be outside the html-body -->
+<script type="text/javascript" src="static/js/script.js"></script>
+
+
+</html>
