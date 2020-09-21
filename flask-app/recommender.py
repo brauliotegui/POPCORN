@@ -18,9 +18,6 @@ with open("nmf_model.pkl", 'rb') as file:
     m = pickle.load(file)
 P = m.components_
 
-movies = pd.read_csv('movies.csv')
-r = pd.read_csv('ratings.csv')
-
 def calculate_best_movies(result_html):
     ''' doc '''
     column_names = ['title', 'rating']
@@ -72,7 +69,6 @@ def similar_users_recommender(result_html):
     result = rec_movies['title']
     return result
 
-    def movieId_to_title(ids):
-    ''' Given a list of movieIds, returns a corresponding list of movie titles.
-    '''
-    return movies.set_index('movieId').loc[ids]['title'].tolist()
+def movieId_to_title(ids):
+    ''' Given a list of movieIds, returns a corresponding list of movie titles.'''
+    return MOVIES.set_index('movieId').loc[ids]['title'].tolist()
