@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.decomposition import NMF
 from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
+import pickle5 as pickle
 
 MOVIES = pd.read_csv('ml-latest-small/movies.csv')
 RATINGS = pd.read_csv('ml-latest-small/ratings.csv')
@@ -11,6 +12,14 @@ DF = pd.merge(RATINGS, MOVIES, left_on='movieId', right_on='movieId')
 MIDS = RATINGS['movieId'].unique()
 MIDS = pd.DataFrame(MIDS)
 MOVIES_DF = pd.merge(MIDS, MOVIES, left_on=0, right_on='movieId')
+
+# better:
+with open("nmf_model.pkl", 'rb') as file:
+    m = pickle.load(file)
+P = m.components_
+
+movies = pd.read_csv('movies.csv')
+r = pd.read_csv('ratings.csv')
 
 def calculate_best_movies(result_html):
     ''' doc '''
@@ -62,3 +71,8 @@ def similar_users_recommender(result_html):
 
     result = rec_movies['title']
     return result
+
+    def movieId_to_title(ids):
+    ''' Given a list of movieIds, returns a corresponding list of movie titles.
+    '''
+    return movies.set_index('movieId').loc[ids]['title'].tolist()
