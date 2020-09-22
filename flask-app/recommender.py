@@ -25,9 +25,7 @@ def calculate_best_movies(result_html):
 
     r_true = DF.pivot(index='userId', columns='movieId', values='rating')
     r_true.fillna(2.5, inplace=True)
-    m = NMF(max_iter=500, n_components=21)
-    m.fit(r_true)
-    P = m.components_
+
 
     user_ratings = pd.merge(MOVIES_DF, user_input, left_on='title', right_on='title', how='left')
     new_user = user_ratings['rating'].fillna(2.5)
