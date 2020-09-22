@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from recommender import calculate_best_movies
 from recommender import similar_users_recommender
 from recommender import movieId_to_title
+import pickle5 as pickle
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -28,6 +29,9 @@ def ratings():
         movies = dict(zip(titles,ids))
     else:
         movies = dict()
+    pkl_filename = "tmp.pkl"
+    with open(pkl_filename, 'wb') as file:
+        pickle.dump(movies, file)
     print(movies)
     return render_template('ratings.html', movies_html=movies.items())
 
@@ -35,16 +39,12 @@ def ratings():
 
 @app.route('/recommender')
 def recommender():
-    user_input = dict(request.args)
-    user_input_movies = list(user_input.values())[:-1:2]
-    user_input_ratings = list(user_input.values())[1:-1:2]
-    user_input_model = list(user_input.values())[-1]
-    user_input = zip(user_input_movies, user_input_ratings)
-    if user_input_model == 'NMF':
-        result = calculate_best_movies(10, user_input_movies, user_input_ratings)
-    else:
-        result = similar_users_recommender(10, user_input_movies, user_input_ratings)
-    return render_template('recommender.html', result=result, user_input=user_input)
+    with open("tmp.pkl", 'rb') as file:
+        user_input_movies = pickle.load(file)
+    user_input_ratings = request.form.to_dict()
+    user_input = zip(user_input_movies, user_input_ratings.values())
+    result = rec.calculate_best_movies(user_input)
+    return render_template('recommendations.html', result_html=result) user_input=user_input)
 
 if __name__ == '__main__':
     # whatever occurs AFTER this line is executed when we run 'python application.py'
