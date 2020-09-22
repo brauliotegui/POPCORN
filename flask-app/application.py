@@ -43,8 +43,8 @@ def recommender():
         user_input_movies = pickle.load(file)
     user_input_ratings = request.form.to_dict()
     user_input = zip(user_input_movies, user_input_ratings.values())
-    result = rec.calculate_best_movies(user_input)
-    return render_template('recommendations.html', result_html=result) user_input=user_input)
+    result = calculate_best_movies(user_input)
+    return render_template('recommendations.html', result_html=result)
 
 if __name__ == '__main__':
     # whatever occurs AFTER this line is executed when we run 'python application.py'
