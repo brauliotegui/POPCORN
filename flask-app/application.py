@@ -37,7 +37,7 @@ def ratings():
 
 
 
-@app.route('/recommender')
+@app.route('/recommendations')
 def recommender():
     with open("tmp.pkl", 'rb') as file:
         user_input_movies = pickle.load(file)
