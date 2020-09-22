@@ -10,11 +10,6 @@
   <ul>
 
 
-      <!--
-      <!--Jinja templates for dynamic rendering, facilitates or HTTP Response
-      <li> {{ result_html[1] }} </li>
-      <li> {{ result_html[2] }} </li> -->
-
   {% for m in result_html%} <!-- this indicates a for-loop in html -->
     <li>{{ m }}</li>
     {% endfor %}

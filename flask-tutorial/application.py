@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from flask import request, redirect
 import recommender as rec #import all objects from recommender.py
+import pickle5 as pickle
 
 app = Flask(__name__) # tells Flask to make THIS script the center of the application
 
@@ -23,19 +24,21 @@ def ratings():
         movies = dict(zip(titles,ids))
     else:
         movies = dict()
+    pkl_filename = "tmp.pkl"
+    with open(pkl_filename, 'wb') as file:
+        pickle.dump(movies, file)
     print(movies)
     return render_template('ratings.html', movies_html=movies.items())
 
 
-
-@app.route('/recommendations')          # Python decorator modifies the function that is defined ON THE NEXT LINE
-def recommender():                      # function HAS TO FOLLOW on the NEXT LINE
-    ratings = dict(request.args)        # integrate user-defined input with ratings as an dictionary
-                                        # Flask transforms Back-End to Front-End: Key-Event for RESPONSE
-    #result = rec.random_recommend(8)    # this is NOT NEEDED anymore
-     # this are the ratings input in index-webpage
-    recommendations = rec.calculate_best_movies(ratings)# given from users and the function saved in recommender.py
-    return render_template('recommendations.html', result_html=recommendations.items())# ratings.items())
+@app.route('/recommendations' , methods = ['POST','GET'])          # Python decorator modifies the function that is defined ON THE NEXT LINE
+def recommender():
+    with open("tmp.pkl", 'rb') as file:
+        user_input_movies = pickle.load(file)
+    user_input_ratings = request.form.to_dict()
+    user_input = zip(user_input_movies, user_input_ratings.values())
+    result = rec.similar_users_recommender(user_input)
+    return render_template('recommendations.html', result_html=result)
 
 
 
