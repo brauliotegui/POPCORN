@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="static/css/styles.css">
+    <title>Lemongrass Movie Recommender</title>
+    <link href="static/css/jquery.flexdatalist.min.css" rel="stylesheet" type="text/css">
+    <link href="static/jquery.flexdatalist.min.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+  <h1>Here are your recommended movies:</h1>
+  <br>
+  <ul>
+
+
+  {% for m in result_html%} <!-- this indicates a for-loop in html -->
+    <li>{{ m }}</li>
+    {% endfor %}
+
+
+  </ul>
+  <br>
+  <a href='/index'>Take me back home!</a>
+</body>
+
+</html>
