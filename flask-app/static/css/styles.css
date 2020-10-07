@@ -15,8 +15,8 @@
 .btn-primary {
   background-color: #1E3052;
   color: #FAFFFD;
-  margin-top: 30px;
-  margin-left: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {

@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="static/css/styles.css">
   <title>Lemongrass Movie Recommender</title>
   <link href="static/css/jquery.flexdatalist.min.css" rel="stylesheet" type="text/css">
@@ -10,26 +11,23 @@
 
 
 <body>
-
-  </div>
-  <div class="container">
-    <form action="/recommendations">
-
-      {% for m in movies_html %}
-       <p>Please rate the movies from 0.5 stars to 5.0 stars.</p>
+  <div class="main-container">
+    <form action="/recommendations" method ="GET">
+      <p>Please rate the movies from 0.0 stars to 5.0 stars.</p>
+      {% for m in movie_list %}
+             <br>
                  {{m[0]}}
-          <input type="text" name="{{m[1]}}" placeholder="0.0 - 5.0" required>
+          <input type="number" name="rating_values" placeholder="0.0 - 5.0" required>
 
             <br>
             {% endfor %}
-          </div>
 
-          <input type="submit" value = "Proceed to suggestions">
-        </form>
+          <br><input type="submit" value = "Proceed to suggestions" class="btn btn-primary">
+        </form><br>
 <a href='/index'>Forgot some movies?</a>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script></script>
-
+</div>
   </body>
 
   <script type="text/javascript" src="static/js/script.js">
