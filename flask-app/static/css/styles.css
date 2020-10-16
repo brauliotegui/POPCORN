@@ -1,15 +1,18 @@
 .main-container {
   height: 100vh;
   display: flex;
-  background-color: #D4EFFF;
-  color: #1E3052;
+  background-image: url("https://i.ibb.co/0KqGkx0/Imports-1-of-1.jpg");
+  background-color: #000000;
+  color: #FFFFFF;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .submit-button {
-  margin-top: 50px;
+  margin-top: 0px;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-primary {
@@ -17,6 +20,15 @@
   color: #FAFFFD;
   justify-content: center;
   align-items: center;
+  margin-left: 65px;
+}
+
+.btn-secondary {
+  background-color: #1E3052;
+  color: #FAFFFD;
+  justify-content: center;
+  align-items: center;
+  margin-left: 155px;
 }
 
 .container {
@@ -33,6 +45,33 @@
   color:#660000;
 }
 
+a {
+  color: #fff9c2;
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  color: #FFFFFF;
+  font-weight: bold;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 h1 {
-  color: #660000;
+  color: #FFFFFF;
+  font-size: 75px;
+  font-weight: bold;
+}
+
+h2 {
+  color: #FFFFFF;
+  font-size: 55px;
+}
+
+h3 {
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 25px
 }
