@@ -6,7 +6,8 @@ A **Movie Recommender** built with a web interface. This project entails a web-b
 
 ## Link: 
 http://novi.pythonanywhere.com/
-Portuguese-BR version of the web-app, deployed
+
+_Portuguese-BR version of the web-app, deployed_
 
 ## Models:
   **1. NMF:** Negative matrix factorization
