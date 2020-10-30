@@ -4,7 +4,7 @@ A **Movie Recommender** built with a web interface. This project entails a web-b
 ## Link:
 http://novi.pythonanywhere.com/
  
-Portugues-BR version of the web-app, deployed
+Portuguese-BR version of the web-app, deployed
 <img src="https://github.com/brauliotegui/POPCORN/blob/master/demo1.gif">
 <img src="https://github.com/brauliotegui/POPCORN/blob/master/demo2.gif">
 
